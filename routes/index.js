@@ -15,6 +15,8 @@ router.post('/', function(req, res, next) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 
+    console.log(req.body);
+
     db.close();
   })
 });
