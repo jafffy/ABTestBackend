@@ -9,15 +9,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var url = 'mongodb://54.186.195.78:27017/myproject';
+  var url = 'mongodb://54.186.195.78:27017/trauma';
 
   MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 
-    console.log(req.body);
+    var obj = JSON.parse(req.body);
 
-    db.close();
+    console.log(obj);
+
+    var collection = db.collection('documents');
+
+    collection.insertMany([obj], function(err, result) {
+      assert.equal(err, null);
+      console.log("Inserted.");
+      db.close();
+    });
   })
 });
 
