@@ -1,4 +1,5 @@
 var express = require('express');
+var PythonShell = require('python-shell');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
@@ -38,6 +39,11 @@ router.post('/', function(req, res, next) {
       assert.equal(err, null);
       console.log("Inserted.");
       db.close();
+
+      PythonShell.run('utils/analysis.py', function (err) {
+        if (err) throw err;
+        console.log('python script called...');
+      });
     });
   })
 });
