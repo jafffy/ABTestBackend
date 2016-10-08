@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var PythonShell = require('python-shell');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -62,5 +63,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+PythonShell.run('utils/analysis.py', function (err) {
+  if (err) throw err;
+  console.log('python script called...');
+});
 
 module.exports = app;
