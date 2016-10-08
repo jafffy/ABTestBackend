@@ -32,13 +32,9 @@ router.post('/', function(req, res, next) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
 
-    var obj = JSON.parse(req.body);
-
-    console.log(obj);
-
     var collection = db.collection('documents');
 
-    collection.insertMany([obj], function(err, result) {
+    collection.insertMany([req.body], function(err, result) {
       assert.equal(err, null);
       console.log("Inserted.");
       db.close();
